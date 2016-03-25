@@ -3,6 +3,7 @@
 """
 limit.py: example of using link and CPU limits
 """
+import sys
 
 from mininet.net import Mininet
 from mininet.link import TCIntf
@@ -35,10 +36,10 @@ def limit( bw=10, cpu=.1 ):
                 continue
         host = custom( CPULimitedHost, sched=sched, cpu=cpu )
         net = Mininet( topo=myTopo, intf=intf, host=host )
-        # net.start()
-        # testLinkLimit( net, bw=bw )
-        # net.runCpuLimitTest( cpu=cpu )
-        # net.stop()
+        net.start()
+        testLinkLimit( net, bw=bw )
+        net.runCpuLimitTest( cpu=cpu )
+        net.stop()
 
 def verySimpleLimit( bw=150 ):
     "Absurdly simple limiting test"
@@ -57,4 +58,10 @@ def verySimpleLimit( bw=150 ):
 
 if __name__ == '__main__':
     setLogLevel( 'info' )
-    limit()
+    if len(sys.argv) == 3:
+        _bw = int(sys.argv[1])
+        _cpu = float(sys.argv[2])
+        # print "bw: {0}, percentage: {1}".format(bw, percentage)
+        limit(bw=_bw, cpu=_cpu)
+    else:
+        print "Error: Wrong syntax.\nUsage: sudo python limit.py <bw> <percentage>"
