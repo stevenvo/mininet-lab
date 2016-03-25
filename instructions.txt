@@ -1,0 +1,33 @@
+This is the 3rd Labtest. I have attached 2 python files l2_firewall.py and limit.py. 
+First program:
+1. Run virtualbox.
+2. Run mininet-vm
+3. execute ifconfig.
+4. create 3 remote terminals by 
+ssh -X mininet@<ip_address>
+where <ip_address> you got from ifconfig command.
+4.1. sftp or copy the attached file l2_firewall.py in the directory
+/home/mininet/pox/pox/forwarding
+4.2. run :-
+sudo python /home/mininet/pox/pox.py log.level --DEBUG forwarding.l2_firewall
+5. Start mininet in another terminal
+sudo mn --topo single,4 --controller remote --switch ovsk --mac
+6. Execute in mininet CLI
+pingall
+7. Observe in terminal as in step 4 how packets are allowed or dropped based on firewall configuration.
+8. Close pox_controller.
+9. Program 1:- :-
+9.1 Edit the code l2_firewall such that the firewall policy becomes:
+Packet forwarding is allowed between hosts (h1, h3) and (h2, h4) but not between (h1, h4) and (h2, h3).
+9. Run pox_controller
+9.3 Run mininet :-
+sudo mn --topo linear,4 --controller remote --switch ovsk --mac
+9.4 Look for intended operation.
+9.5. close pox_controller and close mininet
+Program 2:-
+10 Copy limit.py in your src directory
+10.1. Execute 
+sudo python /home/mininet/src/limit.py
+10.2. Change limit.py so that you can invoke
+sudo python /home/mininet/src/limit.py <bw> <percentage>
+Where bw = bandwidth of the link and percentage = % of cpu cycles.

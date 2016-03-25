@@ -1,0 +1,6 @@
+1. Change the controllers2.py program to create a tree topology with 3 switches and 4 hosts with connection as follows:
+ s1<-->s2 s1<-->s3 c1<-->s1 c2<-->s2 c3<-->s3  s2<-->h1 s2<-->h2 s3<-->h3 s3<-->h4.
+execute as:
+ sudo python ./controllers2.py
+                                                                                                
+2. Change controllers_remote.py - Add two more controllers c3 and c4 which are default controllers. c3 controls s1 and s3. c4 controls s4. The remote controller (existing code) controls s2 only. Verify pingall is successfull.
